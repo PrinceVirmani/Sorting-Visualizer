@@ -26,23 +26,27 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    height: 60vh;
+    height: 70vh;
     width: 90%;
     max-width: 1000px;
     margin-bottom: 20px;
-    border: 2px solid var(--border-color);
+    border: solid var(--border-color);
     padding: 20px;
     background-color: var(--container-bg-color);
     box-shadow: 0 4px 8px var(--shadow-color);
     border-radius: 10px;
     overflow: hidden;
+    box-sizing: border-box;
+    /* Prevents bars from overflowing */
 }
 
 .array-bar {
-    flex-grow: 1;
-    margin: 0 1px;
+    height: auto;
     background-color: var(--bar-color);
     transition: height 0.3s ease, background-color 0.3s ease;
+    width: calc(100% / 50 - 2px);
+    /* Adjust bar width to fit 50 bars within the container */
+    /* Prevents bars from growing or shrinking beyond the container */
 }
 
 .button-container {

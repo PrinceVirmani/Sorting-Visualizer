@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { getMergeSortAnimations } from "../sortingAlgos/sortingAlgos";
+import {
+  getMergeSortAnimations,
+  getHeapSortAnimations,
+  getInsertionSortAnimations,
+  getBubbleSortAnimations,
+} from "../sortingAlgos/sortingAlgos";
+
 import "./sortingVisualizer.css";
 
-const ANIMATION_SPEED_MS = 50;
-const NUMBER_OF_ARRAY_BARS = 60; // Set to 60 for a good fit inside the container
+const ANIMATION_SPEED_MS = 100;
+const NUMBER_OF_ARRAY_BARS = 10;
 const PRIMARY_COLOR = "turquoise";
 const SECONDARY_COLOR = "red";
 
@@ -25,21 +31,18 @@ const SortingVisualizer = () => {
   const animateSorting = (animations) => {
     for (let i = 0; i < animations.length; i++) {
       const arrayBars = document.getElementsByClassName("array-bar");
-      const isColorChange = i % 3 !== 2;
-      if (isColorChange) {
-        const [barOneIdx, barTwoIdx] = animations[i];
-        const barOneStyle = arrayBars[barOneIdx].style;
-        const barTwoStyle = arrayBars[barTwoIdx].style;
-        const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
+      const [barOneIdx, barTwoIdx, action] = animations[i];
+
+      if (action === "compare" || action === "revert") {
+        const color = action === "compare" ? SECONDARY_COLOR : PRIMARY_COLOR;
         setTimeout(() => {
-          barOneStyle.backgroundColor = color;
-          barTwoStyle.backgroundColor = color;
+          arrayBars[barOneIdx].style.backgroundColor = color;
+          arrayBars[barTwoIdx].style.backgroundColor = color;
         }, i * ANIMATION_SPEED_MS);
       } else {
         setTimeout(() => {
-          const [barOneIdx, newHeight] = animations[i];
-          const barOneStyle = arrayBars[barOneIdx].style;
-          barOneStyle.height = `${newHeight}px`;
+          const [barIdx, newHeight] = animations[i];
+          arrayBars[barIdx].style.height = `${newHeight}px`;
         }, i * ANIMATION_SPEED_MS);
       }
     }
@@ -89,7 +92,6 @@ const SortingVisualizer = () => {
   );
 };
 
-// Helper functions
 function randomIntFromInterval(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
