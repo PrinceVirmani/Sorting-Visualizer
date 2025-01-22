@@ -83,10 +83,10 @@ const SortingVisualizer = () => {
       </div>
       <div className="button-container">
         <button onClick={resetArray}>Generate New Array</button>
-        <button onClick={mergeSort}>Merge Sort</button>
         <button onClick={heapSort}>Heap Sort</button>
         <button onClick={insertionSort}>Insertion Sort</button>
         <button onClick={bubbleSort}>Bubble Sort</button>
+        <button onClick={mergeSort}>Merge Sort</button>
       </div>
     </div>
   );
