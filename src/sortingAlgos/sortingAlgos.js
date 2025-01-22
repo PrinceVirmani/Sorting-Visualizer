@@ -1,5 +1,3 @@
-// Merge Sort
-
 export function getHeapSortAnimations(array) {
   const animations = [];
   if (array.length <= 1) return animations;
